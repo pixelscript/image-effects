@@ -54,7 +54,6 @@ var ps = ps || {};
         if(e.target.result) {
             var self = this,
                 i = this.loadedImages.length;
-            this.loadedImages.push({'name': fileData.name,'file': e.target.result});
             var img = $('<img src="'+e.target.result+'">');
             img.on(this.trigger,function(index){
                 return function(e) {
@@ -62,6 +61,7 @@ var ps = ps || {};
                 }
             }(i));
             $('body').append(img);
+            this.loadedImages.push({'name': fileData.name,'file': e.target.result,'dom':img[0]});
         }
     };
 

@@ -5,20 +5,19 @@ var ps = ps || {};
      * Takes a canvas object and modifies it
      * @constructor CanvasEditor
      */
-    function CanvasEditor(canvas) {
-        if (!Modernizr.canvas) {
-            console.warn('The Canvas element is not fully supported in this browser.');
-            return;
-        }
-
-        var canvasGL = this.canvasGL = document.createElement("canvas");
-        canvasGL.width = canvas.width;
-        canvasGL.height = canvas.height;
-        var gl =  canvasGL.getContext('glcanvas') || canvasGL.getContext("webgl") || canvasGL.getContext("experimental-webgl");
-        if(!gl) {
-            console.warn('webgl is not supported in this browser');
-        }
-        $('body').append(canvasGL);
+    function CanvasEditor(c) {
+        this.c = c;
+        this.c.canvas.draw(this.c.texture);
     }
+
+    var c = CanvasEditor.prototype;
+
+    c.ink = function(val) {
+        // apply the ink filter
+        this.c.canvas.draw(this.c.texture).ink(val).update();
+    }
+
     ps.CanvasEditor = CanvasEditor;
+
+
 }());

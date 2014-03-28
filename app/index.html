@@ -2,9 +2,11 @@
 <html>
 <head>
     <title></title>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
     <script src="dist/libs/glfx.js"></script>
     <script src="dist/libs/modernizr.js"></script>
     <script src="dist/libs/jquery.min.js"></script>
+    <script src="dist/libs/jquery-ui.min.js"></script>
     <script src="dist/app.js"></script>
     <link rel="stylesheet" href="dist/app.css">
 </head>
@@ -13,12 +15,21 @@
 </div>
 <script>
     var imageSelector = new ps.ImageSelector(
-            Modernizr.touch?'touchstart':'mousedown',
-            true,
-            function(img){
-                var c = new ps.CanvasFromImage(img.file);
-                var editor = new ps.CanvasEditor(c.canvas);
-            });
+        Modernizr.touch?'touchstart':'mousedown',
+        true,
+        function(img){
+            var c = new ps.CanvasFromImage(img.dom);
+            var e = new ps.CanvasEditor(c);
+            var s = $('<div class="slider"></div>');
+            s.slider({
+                value: 0.5,
+                step: 0.01,
+                min: 0,
+                max: 1,
+                change: function( event, ui ) {e.ink(ui.value);}})
+            $('body').append(s);
+        }
+    );
     $('#main').append(imageSelector.dom);
 </script>
 
