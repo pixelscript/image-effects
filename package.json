@@ -1,0 +1,23 @@
+{
+  "name": "image-effects",
+  "version": "0.0.0",
+  "description": "WebGL effects for images",
+  "main": "app/",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "latest",
+    "bower": "latest",
+    "grunt-includes": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-less": "latest"
+  },
+  "directories": {},
+  "scripts": {},
+  "keywords": [
+    "WebGl", "images", "image processing"
+  ],
+  "author": "Chris Corbett"
+}

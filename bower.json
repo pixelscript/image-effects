@@ -1,0 +1,10 @@
+{
+  "name": "image-effects",
+  "private": true,
+  "version": "0.0.0",
+  "devDependencies": {
+    "jquery": "latest",
+    "jquery-ui": "latest",
+    "angular": "latest"
+  }
+}
