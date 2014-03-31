@@ -55,21 +55,24 @@ var ps = ps || {};
             var self = this,
                 i = this.loadedImages.length;
             var img = $('<img src="'+e.target.result+'">');
-            img.on(this.trigger,function(index){
-                return function(e) {
-                    self.imageClicked(e,i);
-                }
-            }(i));
+//            img.on(this.trigger,function(index){
+//                return function(e) {
+//                    self.imageClicked(e,i);
+//                }
+//            }(i));
             $('body').append(img);
             this.loadedImages.push({'name': fileData.name,'file': e.target.result,'dom':img[0]});
+            if(this.cb){
+                this.cb(this.loadedImages[this.loadedImages.length-1]);
+            }
         }
     };
 
-    i.imageClicked = function(e,index) {
-        if(this.cb){
-            this.cb(this.loadedImages[index]);
-        }
-    };
+//    i.imageClicked = function(e,index) {
+//        if(this.cb){
+//            this.cb(this.loadedImages[index]);
+//        }
+//    };
 
     ps.ImageSelector = ImageSelector;
 

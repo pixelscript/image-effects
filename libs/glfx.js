@@ -303,6 +303,7 @@ exports.canvas = function() {
     canvas.brightnessContrast = wrap(brightnessContrast);
     canvas.hexagonalPixelate = wrap(hexagonalPixelate);
     canvas.hueSaturation = wrap(hueSaturation);
+    canvas.alpha = wrap(alpha);
     canvas.colorHalftone = wrap(colorHalftone);
     canvas.triangleBlur = wrap(triangleBlur);
     canvas.unsharpMask = wrap(unsharpMask);
@@ -940,6 +941,33 @@ function hueSaturation(hue, saturation) {
     simpleShader.call(this, gl.hueSaturation, {
         hue: clamp(-1, hue, 1),
         saturation: clamp(-1, saturation, 1)
+    });
+
+    return this;
+}
+
+
+function alpha(alpha,threshold) {
+    gl.alpha = gl.alpha || new Shader(null, '\
+    uniform sampler2D texture;\
+    uniform float alpha;\
+    uniform float threshold;\
+    varying vec2 texCoord;\
+    void main() {\
+        float diff = 1.0;\
+        vec4 color = texture2D(texture, texCoord);\
+        float average = (color.r + color.g + color.b) / 3.0;\
+        if (average>diff-threshold) {\
+            gl_FragColor = vec4(color.r+alpha,color.g+alpha,color.b+alpha,1);\
+        }\
+        if( average>threshold) {\
+            gl_FragColor = vec4(color.r-alpha,color.g-alpha,color.b-alpha,1);\
+        }\
+    }\
+');
+    simpleShader.call(this, gl.alpha, {
+        alpha: clamp(0, alpha, 1),
+        threshold: clamp(0, threshold, 1)
     });
 
     return this;
